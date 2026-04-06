@@ -1,0 +1,49 @@
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+
+# IntelliJ / JetBrains
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# =========================
+# Backend - Spring Boot / Maven
+# =========================
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+
+# =========================
+# Frontend - Angular / Node
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+
+# npm
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.npm/
+
+# =========================
+# Environment / local config
+# =========================
+.env
+.env.*
+*.local
+
+# =========================
+# Misc
+# =========================
+*.tmp
+*.swp

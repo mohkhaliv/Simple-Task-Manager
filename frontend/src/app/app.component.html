@@ -1,0 +1,99 @@
+<div class="container">
+  <h1>Task Manager</h1>
+
+  <div class="message error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="message success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
+  <div class="card">
+    <h2>{{ isEditMode ? 'Edit Task' : 'Add New Task' }}</h2>
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        id="title"
+        type="text"
+        [(ngModel)]="form.title"
+        placeholder="Enter task title"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        rows="4"
+        [(ngModel)]="form.description"
+        placeholder="Enter task description"
+      ></textarea>
+    </div>
+
+    <div class="form-group checkbox-group" *ngIf="isEditMode">
+      <label>
+        <input type="checkbox" [(ngModel)]="form.done" />
+        Mark as completed
+      </label>
+    </div>
+
+    <div class="button-group">
+      <button (click)="saveTask()">
+        {{ isEditMode ? 'Update Task' : 'Add Task' }}
+      </button>
+      <button *ngIf="isEditMode" class="secondary" (click)="cancelEdit()">
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Filters</h2>
+
+    <div class="toolbar">
+      <input
+        type="text"
+        [(ngModel)]="searchKeyword"
+        placeholder="Search by title..."
+      />
+      <button (click)="searchTasks()">Search</button>
+      <button class="secondary" (click)="clearSearch()">Clear</button>
+    </div>
+
+    <div class="filter-buttons">
+      <button (click)="applyFilter('all')" [class.active]="filterStatus === 'all'">All</button>
+      <button (click)="applyFilter('todo')" [class.active]="filterStatus === 'todo'">To Do</button>
+      <button (click)="applyFilter('done')" [class.active]="filterStatus === 'done'">Completed</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Task List</h2>
+
+    <div *ngIf="tasks.length === 0" class="empty-state">
+      No tasks found.
+    </div>
+
+    <div *ngFor="let task of tasks" class="task-item">
+      <div class="task-header">
+        <div>
+          <h3 [class.done]="task.done">{{ task.title }}</h3>
+          <p class="description" *ngIf="task.description">{{ task.description }}</p>
+          <small>Status: {{ task.done ? 'Completed' : 'To Do' }}</small><br />
+          <small>Created: {{ task.createdAt | date:'medium' }}</small><br />
+          <small>Updated: {{ task.updatedAt | date:'medium' }}</small>
+        </div>
+
+        <div class="task-actions">
+          <button (click)="toggleTask(task)">
+            {{ task.done ? 'Mark To Do' : 'Mark Done' }}
+          </button>
+          <button class="secondary" (click)="editTask(task)">Edit</button>
+          <button class="danger" (click)="deleteTask(task.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
